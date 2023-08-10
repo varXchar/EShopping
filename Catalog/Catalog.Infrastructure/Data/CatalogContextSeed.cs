@@ -16,7 +16,13 @@ namespace Catalog.Infrastructure.Data
             bool checkProducts = productCollection.Find(b => true).Any();
             if (!checkProducts)
             {
-                var productsData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/products.json");
+                // FOR DOCKER CONTAINER
+                string path = Path.Combine("Data", "SeedData", "products.json");
+                var productsData = File.ReadAllText(path);
+
+                // FOR LOCAL TESTING ONLY
+                //var productsData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/products.json");
+
                 var products = JsonSerializer.Deserialize<List<Product>>(productsData);
                 if (products != null)
                 {

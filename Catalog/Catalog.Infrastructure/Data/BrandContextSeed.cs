@@ -16,7 +16,13 @@ namespace Catalog.Infrastructure.Data
             bool checkBrands = brandCollection.Find(b => true).Any();
             if (!checkBrands)
             {
-                var brandsData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/brands.json");
+                // FOR DOCKER CONTAINER
+                string path = Path.Combine("Data", "SeedData", "brands.json");
+                var brandsData = File.ReadAllText(path);
+
+                // FOR LOCAL TESTING ONLY
+                //var brandsData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/brands.json");
+
                 var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
                 if (brands != null)
                 {

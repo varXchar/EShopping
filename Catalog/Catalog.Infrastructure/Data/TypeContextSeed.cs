@@ -16,7 +16,13 @@ namespace Catalog.Infrastructure.Data
             bool checkTypes = typeCollection.Find(b => true).Any();
             if (!checkTypes)
             {
-                var typesData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/types.json");
+                // FOR DOCKER CONTAINER
+                string path = Path.Combine("Data", "SeedData", "types.json");
+                var typesData = File.ReadAllText(path);
+
+                // FOR LOCAL TESTING ONLY
+                //var typesData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/types.json");
+
                 var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
                 if (types != null)
                 {
